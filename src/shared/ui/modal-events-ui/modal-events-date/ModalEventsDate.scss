@@ -1,0 +1,38 @@
+.modal-date {
+	max-width: 212px;
+	background-color: #fafafa;
+	padding: 15px 12px 15px 16px;
+	border-radius: 24px;
+	gap: 8px;
+	flex-shrink: 0;
+
+	.date-top {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		border-bottom: 1px solid var(--system-colors-element) !important;
+
+		span {
+			font-family: Redcollar;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 18px;
+			letter-spacing: -0.36px;
+
+			&:last-child {
+				margin-bottom: 8px;
+			}
+		}
+	}
+
+	.date-bottom {
+		font-family: TT Commons;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 18px;
+		letter-spacing: -0.36px;
+		margin-top: 8px;
+	}
+}

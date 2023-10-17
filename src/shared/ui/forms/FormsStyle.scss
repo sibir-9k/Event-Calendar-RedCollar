@@ -1,0 +1,109 @@
+.regist-form,
+.email-form,
+.pass-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__top {
+		display: flex;
+		width: 520px;
+		padding: 8px 12px;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 24px;
+
+		border-radius: 12px;
+		background: #fafafa;
+
+		.warning-text {
+			font-family: TT Commons;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 16.8px;
+			letter-spacing: -0.28px;
+		}
+	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 314px;
+	gap: 32px;
+	margin: 0px;
+
+	.input-block {
+		width: 100%;
+		position: relative;
+
+		input {
+			display: flex;
+			height: 60px;
+			width: 100%;
+			padding: 10px 16px 9px 16px;
+			align-items: center;
+			gap: 8px;
+			align-self: stretch;
+
+			border-radius: 12px;
+			border: 1px solid var(--border-input-color-gray) !important;
+			background: #fff;
+			&:focus {
+				border: 1px solid var(--main-colors-black) !important;
+			}
+		}
+		.green {
+			border: 1px solid var(--border-input-color-green) !important;
+		}
+
+		.error {
+			color: var(--main-colors-accent);
+			font-family: TT Commons;
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 16.8px; 
+			letter-spacing: -0.28px;
+		}
+	}
+
+	button {
+		display: flex;
+		padding: 21px 32px;
+		justify-content: center;
+		align-items: center;
+		gap: 8px;
+		align-self: stretch;
+		border-radius: 12px;
+		background: var(--system-colors-element);
+		cursor: pointer;
+
+		font-family: Redcollar;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 18px;
+		letter-spacing: -0.36px;
+		color: #b3b3bc;
+	}
+
+	.active {
+		background-color: var(--main-colors-black);
+		color: #fff;
+	}
+}
+
+.eye {
+	position: absolute;
+	top: 15px;
+	right: 16px;
+	width: 32px;
+	height: 32px;
+	background-color: inherit;
+	padding: 0 !important;
+	cursor: pointer;
+}

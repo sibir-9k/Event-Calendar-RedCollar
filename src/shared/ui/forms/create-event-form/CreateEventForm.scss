@@ -1,0 +1,64 @@
+.create-event {
+	margin: 0;
+	width: 948px;
+	&__wrapper {
+		display: flex;
+		gap: 12px;
+
+		.left-block {
+			display: flex;
+			flex-direction: column;
+			gap: 32px;
+			width: 580px;
+
+			.description {
+				height: 153px;
+			}
+
+			.drag {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 170px;
+
+				color: var(--border-input-color-gray);
+				text-align: center;
+				font-family: TT Commons;
+				font-size: 20px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 22px;
+				letter-spacing: -0.4px;
+
+				border-radius: 12px;
+				border: 1px dashed var(--border-input-color-gray) !important;
+				background: var(--main-colors-white);
+			}
+		}
+		.right-block {
+			display: flex;
+			flex-direction: column;
+			gap: 32px;
+			width: 346px;
+
+			.date-picker {
+				display: flex;
+				gap: 8px;
+			}
+		}
+	}
+
+	input {
+		width: 100%;
+		display: flex;
+		height: 60px;
+		padding: 18px 16px;
+		align-items: center;
+		gap: 8px;
+		align-self: stretch;
+
+		border-radius: 12px;
+		border: 1px solid var(--border-input-color-gray) !important;
+		background: var(--basic-base) !important;
+	}
+}

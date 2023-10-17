@@ -1,0 +1,203 @@
+.fc {
+	&-scroller-harness-liquid {
+		border-radius: 24px;
+		border: 1px solid #b3b3bc !important;
+	}
+
+	&-daygrid-day-frame {
+		padding: 12px 12px 0px 12px;
+	}
+
+	tr[role='row']:not(:last-child) {
+		border-right: 1px solid #b3b3bc !important;
+		border-bottom: 1px solid #b3b3bc !important;
+	}
+
+	&-scrollgrid-sync-table {
+		.fc-daygrid-day {
+			border-right: 1px solid #b3b3bc !important;
+		}
+	}
+
+	&-scroller {
+		overflow: hidden !important;
+	}
+
+	&-daygrid-day-number {
+		font-family: TT Commons;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 140%;
+		letter-spacing: -0.4px;
+	}
+
+	&-col-header-cell-cushion {
+		font-family: Redcollar;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 24px;
+		letter-spacing: -0.48px;
+		text-transform: capitalize;
+		float: right;
+	}
+
+	&-h-event {
+		& .fc-event-main {
+			width: fit-content !important;
+			cursor: pointer;
+			display: inline-flex;
+			padding: 2px 6px;
+			justify-content: flex-end;
+			align-items: center;
+			gap: 8px;
+			border-radius: 8px;
+			color: var(--main-colors-black);
+			background: var(--system-colors-element);
+			float: right;
+		}
+
+		&-frame {
+			& .fc-event-title {
+				color: var(--main-colors-black);
+				text-align: right;
+				font-family: TT Commons;
+				font-size: 20px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 140%;
+				letter-spacing: -0.4px;
+			}
+		}
+	}
+
+	&-toolbar {
+		&.fc-header-toolbar {
+			margin-bottom: 104px;
+		}
+
+		&-chunk {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 40px;
+
+			& .fc-toolbar-title {
+				font-size: 26px;
+				text-transform: capitalize;
+				font-family: Redcollar;
+				font-size: 26px;
+				font-style: normal;
+				font-weight: 400;
+				line-height: 31.2px;
+				letter-spacing: -0.52px;
+			}
+
+			&:nth-child(3) {
+				& .fc-button {
+					background-color: var(--system-colors-element);
+					width: 64px;
+					height: 48px;
+					border-radius: 8px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border: inherit;
+
+					& span {
+						color: black;
+						font-size: 2.5rem;
+					}
+				}
+
+				& .fc-prev-button {
+					border-radius: 8px !important;
+					margin-right: 0 !important;
+					margin-left: 32px !important;
+				}
+
+				& .fc-next-button {
+					border-radius: 8px !important;
+					margin-right: 134px !important;
+					margin-left: 8px !important;
+				}
+
+				& .fc-сustomButton-button,
+				& .fc-createEventButton-button {
+					width: fit-content;
+					height: 60px;
+					background-color: var(--main-colors-black);
+					color: var(--system-colors-element);
+					padding: 21px 32px;
+					border-radius: 12px;
+
+					font-family: Redcollar;
+					font-size: 18px;
+					font-style: normal;
+					font-weight: 400;
+					line-height: 18px;
+					letter-spacing: -0.36px;
+				}
+
+				& .fc-createEventButton-button {
+					padding: 19px 32px;
+				}
+			}
+		}
+	}
+
+	&-daygrid-block-event {
+		& .fc-event-title {
+			color: var(--main-colors-black);
+			text-align: right;
+			font-family: TT Commons;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 28px;
+			letter-spacing: -0.4px;
+		}
+	}
+
+	&-scrollgrid-sync-table {
+		width: calc(100% + 20px) !important;
+	}
+
+	& .past {
+		color: #b3b3bc !important;
+		background-color: var(--system-colors-element);
+	}
+
+	@media (min-width: 1280px) and (max-width: 1600px) {
+		& .fc-daygrid-block-event .fc-event-title {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden !important;
+		}
+
+		&-h-event .fc-event-main {
+			width: 130px;
+		}
+
+		&-h-event .fc-event-main-frame {
+			width: 100%;
+		}
+	}
+
+	@media (min-width: 1600px) and (max-width: 1800px) {
+		& .fc-daygrid-block-event .fc-event-title {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden !important;
+		}
+
+		&-h-event .fc-event-main {
+			width: 180px;
+		}
+
+		&-h-event .fc-event-main-frame {
+			width: 100%;
+		}
+	}
+}

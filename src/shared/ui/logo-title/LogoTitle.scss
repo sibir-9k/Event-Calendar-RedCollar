@@ -1,0 +1,21 @@
+.logo-title {
+	display: flex;
+	margin-right: 19px;
+	.logo {
+		margin-right: 35px;
+	}
+	.title {
+		font-family: Redcollar;
+		font-size: 26px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 31.2px;
+		letter-spacing: -0.52px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	.logo-title .title {
+		font-size: 20px;
+	}
+}

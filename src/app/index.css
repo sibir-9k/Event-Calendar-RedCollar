@@ -1,0 +1,39 @@
+@import './styles/normalize.css';
+@import './styles/colors.css';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none !important;
+	border: none !important;
+}
+
+@font-face {
+	font-family: 'Redcollar';
+	src: url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.eot');
+	src: url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.eot?#iefix')
+			format('embedded-opentype'),
+		url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.woff2') format('woff2'),
+		url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.woff') format('woff'),
+		url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.ttf') format('truetype'),
+		url('../../public/fonts/Redcollar/f02cf2e6e27a17bcfe9efa18c041c208.svg#Redcollar') format('svg');
+}
+@font-face {
+	font-family: 'TT Commons';
+	src: url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.eot');
+	src: url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.eot?#iefix')
+			format('embedded-opentype'),
+		url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.woff2')
+			format('woff2'),
+		url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.woff')
+			format('woff'),
+		url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.ttf')
+			format('truetype'),
+		url('../../public/fonts/TT Commons Regular/791b34a71c48acc600f240e9fdb57fb6.svg#TT Commons')
+			format('svg');
+}
+
+.app {
+	padding: 0 60px;
+}

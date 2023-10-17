@@ -1,0 +1,66 @@
+.event-joining {
+	height: 310px;
+	.title {
+		font-family: Redcollar;
+		font-size: 64px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 76.8px;
+		letter-spacing: -2.56px;
+		margin-bottom: 16px;
+	}
+	&__top {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 71px;
+		gap: 4px;
+		p {
+			font-family: Redcollar;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 18px;
+			letter-spacing: -0.36px;
+		}
+		.name-red {
+			color: var(--main-colors-accent);
+			font-family: Redcollar;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 18px;
+			letter-spacing: -0.36px;
+		}
+	}
+	&__bottom {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-bottom: 40px;
+		.bottom-top {
+			font-family: Redcollar;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 18px;
+			letter-spacing: -0.36px;
+		}
+		.bottom {
+			font-family: TT Commons;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 28px;
+			letter-spacing: -0.4px;
+		}
+	}
+}
+
+.rock-hand {
+	position: absolute;
+	right: 25px;
+	bottom: 0px;
+	img {
+		width: 100%;
+	}
+}

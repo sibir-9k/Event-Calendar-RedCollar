@@ -1,0 +1,32 @@
+.event-joining-error {
+	width: 642px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 102px;
+	.title-error {
+		font-family: Redcollar;
+		font-size: 64px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 76.8px;
+		letter-spacing: -2.56px;
+	}
+	.error-text {
+		color: var(--main-colors-accent);
+		/* h4 */
+		font-family: Redcollar;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 18px;
+		letter-spacing: -0.36px;
+	}
+}
+
+.bird {
+	position: absolute;
+	right: 0px;
+	top: 170px;
+	z-index: -1;
+}
