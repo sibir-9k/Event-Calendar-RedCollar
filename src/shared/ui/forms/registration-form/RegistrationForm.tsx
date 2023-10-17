@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import InfoIcon from '../../../../../public/images/warning.svg';
-import OpenEye from '../../../../../public/images/open-eye.svg';
-import CloseEye from '../../../../../public/images/close-eye.svg';
+import InfoIcon from '@/public/images/warning.svg';
+import OpenEye from '@/public/images/open-eye.svg';
+import CloseEye from '@/public/images/close-eye.svg';
 
 import '../FormsStyle.scss';
 

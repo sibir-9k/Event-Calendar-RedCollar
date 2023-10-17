@@ -2,8 +2,9 @@ import { FC, useState, useEffect } from 'react';
 import axios from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { RegistrationForm } from '../registration-form/RegistrationForm';
-import OpenEye from '../../../../../public/images/open-eye.svg';
-import CloseEye from '../../../../../public/images/close-eye.svg';
+import OpenEye from '@/public/images/open-eye.svg';
+import CloseEye from '@/public/images/close-eye.svg';
+
 import '../FormsStyle.scss';
 
 interface AuthForm {

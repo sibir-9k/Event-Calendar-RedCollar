@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import './EventJoining.scss';
 import { Button } from 'shared/ui/button/Button';
-import RockHand from '../../../../../public/images/rock-hand.svg';
+import RockHand from '@/public/images/rock-hand.svg';
 
 export const EventJoining: FC = () => {
 	return (

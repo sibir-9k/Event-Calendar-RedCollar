@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import logo from '../../../../public/images/logo.svg';
+import logo from '@/public/images/logo.svg';
 import './LogoTitle.scss';
 
 export const LogoTitle: FC = () => {

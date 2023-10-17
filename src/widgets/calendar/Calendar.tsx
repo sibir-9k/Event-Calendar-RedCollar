@@ -5,7 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { Modal } from 'widgets/modal/Modal';
 import { ModalEvent } from 'shared/ui';
 import { EmailForm } from 'shared/ui/forms/auth-form/EmailForm';
-import userAvatar from '../../../public/images/user-avatar.svg';
+import userAvatar from '@/public/images/user-avatar.svg';
 
 import './Calendar.scss';
 import {

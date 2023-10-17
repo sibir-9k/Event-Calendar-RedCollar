@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from 'shared/ui/button/Button';
-import Bird from '../../../../../public/images/bird.svg';
+import Bird from '@/public/images/bird.svg';
 import './EventJoiningError.scss';
 
 export const EventJoiningError: FC = () => {

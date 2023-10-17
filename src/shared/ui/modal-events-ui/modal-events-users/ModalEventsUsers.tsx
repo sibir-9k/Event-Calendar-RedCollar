@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import AvatarUser from '../../../../../public/images/user-avatar.svg';
+import AvatarUser from '@/public/images/user-avatar.svg';
 import './ModalEventUsers.scss';
 
 interface EventParticipant {
