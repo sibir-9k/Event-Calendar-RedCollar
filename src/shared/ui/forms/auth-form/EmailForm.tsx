@@ -96,6 +96,8 @@ export const EmailForm: FC<EmailFormProps> = ({
 		}
 	};
 
+	console.log(openPassword);
+
 	return (
 		<>
 			{openInput && (
@@ -133,13 +135,16 @@ export const EmailForm: FC<EmailFormProps> = ({
 							<>
 								<div className="input-block">
 									<input
-										type={openPassword ? 'password' : 'text'}
+										type={openPassword ? 'text' : 'password'}
 										{...register('password', { required: true })}
 										placeholder="Пароль"
 										onChange={handleChange}
 									/>
-									<button className="eye" onClick={() => setOpenPassword(!openPassword)}>
-										<img src={!openPassword ? CloseEye : OpenEye} />
+									<button
+										type="button"
+										className="eye"
+										onClick={() => setOpenPassword(!openPassword)}>
+										<img src={openPassword ? OpenEye : CloseEye} />
 									</button>
 								</div>
 								{passwordValid ? (
