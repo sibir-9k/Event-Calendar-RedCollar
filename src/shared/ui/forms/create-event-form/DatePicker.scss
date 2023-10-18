@@ -64,3 +64,20 @@
 		border-width: 2px 2px 0 0;
 	}
 }
+
+.create-event input {
+	color: var(--main-colors-black);
+	font-family: TT Commons;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 120%; /* 21.6px */
+	letter-spacing: -0.36px;
+}
+
+input::placeholder::after {
+	content: '*' !important;
+	color: red !important;
+	width: 40px !important;
+	height: 40px !important;
+}

@@ -13,6 +13,11 @@
 
 			.description {
 				height: 153px;
+
+				&::placeholder {
+					position: absolute;
+					top: 18px;
+				}
 			}
 
 			.drag {
@@ -49,6 +54,7 @@
 	}
 
 	input {
+		box-sizing: border-box;
 		width: 100%;
 		display: flex;
 		height: 60px;
@@ -60,5 +66,19 @@
 		border-radius: 12px;
 		border: 1px solid var(--border-input-color-gray) !important;
 		background: var(--basic-base) !important;
+
+		&::placeholder {
+			font-family: TT Commons;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 110%; /* 22px */
+			letter-spacing: -0.4px;
+		}
+	}
+
+	.create-btn {
+		margin: 0 auto;
+		width: fit-content;
 	}
 }

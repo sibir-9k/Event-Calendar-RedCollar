@@ -76,8 +76,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 		);
 	};
 
-	console.log(disabledBtn);
-
 	const warningText = `В пароле используйте от 8 до 32 символов: строчные и прописные латинские буквы (A-z), цифры (0-9) и спец символы ( . , : ; ? ! * + % - < > @ [ ] { } / \ _ {} $ # )`;
 
 	return (
@@ -106,9 +104,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 						placeholder="Пароль"
 						className={watch('password') === watch('confirmPassword') ? 'green' : ''}
 					/>
-					<button className="eye" onClick={() => setOpenPassword(!openPassword)}>
+					<div className="eye" onClick={() => setOpenPassword(!openPassword)}>
 						<img src={openPassword ? OpenEye : CloseEye} />
-					</button>
+					</div>
 					{errors.password && <span className="error">{errors.password.message}</span>}
 				</div>
 				<div className="input-block">
@@ -119,9 +117,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 						placeholder="Повторить пароль"
 						className={watch('password') === watch('confirmPassword') ? 'green' : ''}
 					/>
-					<button className="eye" onClick={() => setOpenPassword(!openPassword)}>
+					<div className="eye" onClick={() => setOpenPassword(!openPassword)}>
 						<img src={openPassword ? OpenEye : CloseEye} />
-					</button>
+					</div>
 					{errors.confirmPassword && <span className="error">Пароли не совпадают</span>}
 				</div>
 				{disabledBtn ? (

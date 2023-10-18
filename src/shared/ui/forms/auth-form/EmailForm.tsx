@@ -37,8 +37,6 @@ export const EmailForm: FC<EmailFormProps> = ({
 	const [openPassword, setOpenPassword] = useState(false);
 	const [openInput, setOpenInput] = useState(true);
 
-	// useEffect(() => {}, [checkEmail, emailSubmitted]);
-
 	const onSubmit: SubmitHandler<AuthForm> = async (formData) => {
 		const { email, password } = formData;
 
@@ -96,8 +94,6 @@ export const EmailForm: FC<EmailFormProps> = ({
 		}
 	};
 
-	console.log(openPassword);
-
 	return (
 		<>
 			{openInput && (
@@ -140,12 +136,9 @@ export const EmailForm: FC<EmailFormProps> = ({
 										placeholder="Пароль"
 										onChange={handleChange}
 									/>
-									<button
-										type="button"
-										className="eye"
-										onClick={() => setOpenPassword(!openPassword)}>
+									<div className="eye" onClick={() => setOpenPassword(!openPassword)}>
 										<img src={openPassword ? OpenEye : CloseEye} />
-									</button>
+									</div>
 								</div>
 								{passwordValid ? (
 									<button type="submit" className="active">

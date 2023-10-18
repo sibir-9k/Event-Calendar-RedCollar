@@ -13,12 +13,8 @@ interface ModalEventsUsersProps {
 }
 
 export const ModalEventsUsers: FC<ModalEventsUsersProps> = ({ eventParticipants, eventID }) => {
-	console.log(eventParticipants);
-	console.log(eventID);
 	if (eventParticipants.length === 0) return null;
 	const organiser = eventParticipants.find((user) => Number(eventID) === user.id);
-
-	console.log(organiser);
 
 	return (
 		<div className="modal-users">

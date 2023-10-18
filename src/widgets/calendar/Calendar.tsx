@@ -107,6 +107,7 @@ export const Calendar: FC<Event> = () => {
 		return <div className={`fc-event-title ${arg?.event?.classNames[0]}`}>{arg.event.title}</div>;
 	}
 
+
 	return (
 		<>
 			{isAuthUser ? (
@@ -172,7 +173,7 @@ export const Calendar: FC<Event> = () => {
 			)}
 			{currentEvent && (
 				<Modal title={currentEvent.title} closeModal={closeModal}>
-					<ModalEvent event={currentEvent} openAuthModal={openAuthModal} />
+					<ModalEvent event={currentEvent} openAuthModal={openAuthModal} isAuthUser={isAuthUser} />
 				</Modal>
 			)}
 			{isAuthModalOpen && (
@@ -185,11 +186,11 @@ export const Calendar: FC<Event> = () => {
 					/>
 				</Modal>
 			)}
-			{openCreateEvent && (
+			{/* {openCreateEvent && (
 				<Modal title="Создание события" closeModal={closeModal}>
 					<CreateEventForm />
 				</Modal>
-			)}
+			)} */}
 		</>
 	);
 };
