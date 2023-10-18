@@ -61,7 +61,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 
 	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		console.log(name, value);
+
 		if (name === 'password') {
 			if (value.length > 0 && watch('password') !== '' && watch('confirmPassword') !== '') {
 				setDisabledBtn(false);
@@ -75,6 +75,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 			)
 		);
 	};
+
+	console.log(disabledBtn);
 
 	const warningText = `В пароле используйте от 8 до 32 символов: строчные и прописные латинские буквы (A-z), цифры (0-9) и спец символы ( . , : ; ? ! * + % - < > @ [ ] { } / \ _ {} $ # )`;
 
@@ -90,7 +92,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 				</div>
 				<div className="input-block">
 					<input
-						type={!openPassword ? 'text' : 'password'}
+						type={openPassword ? 'text' : 'password'}
 						{...register('password', {
 							minLength: 8,
 							maxLength: 32,
@@ -102,34 +104,23 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 						})}
 						onChange={handlePasswordChange}
 						placeholder="Пароль"
-						className={
-							watch('password') === watch('confirmPassword') &&
-							watch('password')?.length !== 0 &&
-							watch('confirmPassword')?.length !== 0
-								? 'green'
-								: ''
-						}
+						className={watch('password') === watch('confirmPassword') ? 'green' : ''}
 					/>
 					<button className="eye" onClick={() => setOpenPassword(!openPassword)}>
-						<img src={openPassword ? CloseEye : OpenEye} />
+						<img src={openPassword ? OpenEye : CloseEye} />
 					</button>
 					{errors.password && <span className="error">{errors.password.message}</span>}
 				</div>
 				<div className="input-block">
 					<input
-						type={!openPassword ? 'text' : 'password'}
+						type={openPassword ? 'text' : 'password'}
 						{...register('confirmPassword', { validate: (value) => value === watch('password') })}
+						onChange={handlePasswordChange}
 						placeholder="Повторить пароль"
-						className={
-							watch('password') === watch('confirmPassword') &&
-							watch('password')?.length !== 0 &&
-							watch('confirmPassword')?.length !== 0
-								? 'green'
-								: ''
-						}
+						className={watch('password') === watch('confirmPassword') ? 'green' : ''}
 					/>
 					<button className="eye" onClick={() => setOpenPassword(!openPassword)}>
-						<img src={openPassword ? CloseEye : OpenEye} />
+						<img src={openPassword ? OpenEye : CloseEye} />
 					</button>
 					{errors.confirmPassword && <span className="error">Пароли не совпадают</span>}
 				</div>

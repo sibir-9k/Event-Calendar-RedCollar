@@ -43,7 +43,7 @@ export const Calendar: FC<Event> = () => {
 	const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 	const [userAvatar, setUserAvatar] = useState('');
-	const [openCreateEvent, setOpenCreateEvent] = useState(false);
+	const [openCreateEvent, setOpenCreateEvent] = useState(true);
 
 	// 1 способ
 	const closeModal = () => {

@@ -10,4 +10,8 @@ button {
 	font-weight: 400;
 	line-height: 18px;
 	letter-spacing: -0.36px;
+
+	&:hover {
+		background-color: var(--main-colors-accent);
+	}
 }

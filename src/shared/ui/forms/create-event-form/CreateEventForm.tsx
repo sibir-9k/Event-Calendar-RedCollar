@@ -1,17 +1,23 @@
 import { DragEvent, FC, useState, useRef, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
-
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
 import './CreateEventForm.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import './DatePicker.scss';
+// import ru from '@fullcalendar/core/locales/ru.js';
+registerLocale('ru', ru);
 
 export const CreateEventForm: FC = () => {
 	const { register, handleSubmit } = useForm();
 	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
 	const [drag, setDrag] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+
+	setDefaultLocale('ru');
 
 	const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
@@ -104,11 +110,15 @@ export const CreateEventForm: FC = () => {
 								{...register('dayStartEvent')}
 								selected={startDate}
 								onChange={(date: SetStateAction<Date>) => setStartDate(date)}
+								locale={ru}
+								required
 							/>
 							<DatePicker
 								{...register('dayEndEvent')}
-								selected={startDate}
-								onChange={(date: SetStateAction<Date>) => setStartDate(date)}
+								selected={endDate}
+								onChange={(date: SetStateAction<Date>) => setEndDate(date)}
+								locale={ru}
+								required
 							/>
 						</div>
 						<input {...register('time')} type="text" placeholder="Время" />
