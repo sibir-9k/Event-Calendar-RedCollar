@@ -7,8 +7,10 @@
 	font-weight: 400;
 	line-height: 100%;
 	letter-spacing: -0.36px;
+  
 
-	.auth-btn {
+	.auth-btn,
+  .exit-btn {
 		color: var(--main-colors-accent);
 		background-color: inherit;
 		cursor: pointer;

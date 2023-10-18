@@ -6,6 +6,8 @@ import { ModalEventsUsers } from '..';
 // import { Button } from '../button/Button';
 import './ModalEvent.scss';
 import axios from 'axios';
+import { Modal } from 'widgets/modal/Modal';
+import { ModalQuestion } from '../modals-question/ModalQuestion';
 
 interface Participants {
 	id: number;
@@ -31,12 +33,14 @@ interface ModalEventProps {
 			photos: Photos[];
 		};
 	};
-	openAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
+	openAuthModal: Function;
 	isAuthUser: boolean;
 }
 
 export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUser }) => {
-	const [subscribedEvent, setSubscribedEvent] = useState(false);
+	const [subscribedEvent, setSubscribedEvent] = useState(true);
+	const [openAskQuestion, setOpenAskQuestion] = useState(false);
+	// const [answerQuestion, setAnswerQuestion] = useState(false);
 
 	const joiningEvent = async () => {
 		const token = localStorage.getItem('token');
@@ -61,6 +65,36 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 		}
 	};
 
+	const closeModal = () => {
+		if (openAskQuestion) {
+			setOpenAskQuestion(false);
+		}
+	};
+
+	const leaveEvent = async () => {
+		const token = localStorage.getItem('token');
+		const idEvent = Number(event.id);
+
+		try {
+			const response = await axios.post(
+				`https://planner.rdclr.ru/api/events/${idEvent}/leave`,
+				{},
+				{
+					headers: {
+						'Content-Type': 'application/json; charset=utf-8',
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			const result = response.data;
+			console.log(result);
+			setOpenAskQuestion(false);
+			setSubscribedEvent(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			<div className="modal-info">
@@ -71,7 +105,16 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 				<ModalEventsUsers eventParticipants={event.extendedProps.participants} eventID={event.id} />
 			)}
 			{event.extendedProps.photos && <ModalEventsSlider eventPhoto={event.extendedProps.photos} />}
-			{!isAuthUser ? (
+
+			{subscribedEvent ? (
+				<h4 className="modal-bottom">
+					Вы присоединились к событию. Если передумали, можете
+					<button className="exit-btn" onClick={() => setOpenAskQuestion(true)}>
+						{' '}
+						отменить участие.
+					</button>
+				</h4>
+			) : !isAuthUser ? (
 				<h4 className="modal-bottom">
 					<button className="auth-btn" onClick={() => openAuthModal()}>
 						Войдите
@@ -83,7 +126,12 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 					Присоединиться к событию
 				</button>
 			)}
-			{subscribedEvent}
+
+			{openAskQuestion && (
+				<Modal title="Вы действительно хотите отменить участие?" closeModal={closeModal}>
+					<ModalQuestion setOpenAskQuestion={setOpenAskQuestion} leaveEvent={leaveEvent} />
+				</Modal>
+			)}
 		</>
 	);
 };

@@ -1,0 +1,15 @@
+.button-no,
+.button-yes {
+	padding: 21px 32px;
+	border-radius: 12px;
+}
+
+.button-no {
+	border: 1px solid var(--main-colors-black) !important;
+	color: var(--main-colors-black);
+}
+
+.button-yes {
+	color: var(--main-colors-white);
+	background-color: var(--main-colors-black);
+}
