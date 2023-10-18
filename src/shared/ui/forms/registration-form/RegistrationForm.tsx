@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
-import axios from 'axios';
+import { api } from 'app/api/config';
+import { checkRegular, passwordReg } from 'app/utils/regular';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InfoIcon from '@/public/images/warning.svg';
 import OpenEye from '@/public/images/open-eye.svg';
@@ -37,26 +38,19 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 
 	const onSubmit: SubmitHandler<RegistrationForm> = async (formDataReg) => {
 		try {
-			const response = await axios.post(
-				`https://planner.rdclr.ru/api/auth/local/register`,
-				{
-					username: formDataReg.name,
-					email: emailRegistration,
-					password: formDataReg.password,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json; charset=utf-8',
-					},
-				}
-			);
+			const response = await api.post(`auth/local/register`, {
+				username: formDataReg.name,
+				email: emailRegistration,
+				password: formDataReg.password,
+			});
 
 			const result = response.data;
 			setIsAuthUser(true);
 			setIsAuthModalOpen(false);
 			console.log(result);
-		} catch (error) {}
-		// setIsFormFilled(true);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,11 +63,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 				setDisabledBtn(true);
 			}
 		}
-		setPasswordValid(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,:;?!*+%<>@[\]{}\\/\\_{}$#])[A-Za-z\d.,:;?!*+%<>@[\]{}\/\\_{}$#]{8,32}$/.test(
-				value
-			)
-		);
+		setPasswordValid(checkRegular(passwordReg, value));
 	};
 
 	const warningText = `В пароле используйте от 8 до 32 символов: строчные и прописные латинские буквы (A-z), цифры (0-9) и спец символы ( . , : ; ? ! * + % - < > @ [ ] { } / \ _ {} $ # )`;
@@ -95,8 +85,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 							minLength: 8,
 							maxLength: 32,
 							pattern: {
-								value:
-									/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,:;?!*+%<>@[\]{}\/\\_{}$#])[A-Za-z\d.,:;?!*+%<>@[\]{}\/\\_{}$#]{8,32}$/,
+								value: passwordReg,
 								message: 'Используйте латинские буквы, цифры и спец символы',
 							},
 						})}
@@ -122,7 +111,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 					</div>
 					{errors.confirmPassword && <span className="error">Пароли не совпадают</span>}
 				</div>
-				{disabledBtn ? (
+				{disabledBtn && passwordValid ? (
 					<button type="submit" disabled>
 						Зарегистрироваться
 					</button>

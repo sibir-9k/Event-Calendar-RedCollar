@@ -144,6 +144,15 @@
 					}
 				}
 
+				.fc-userAvatarButton-button {
+					background: url(../../../public/images/user-avatar.svg) no-repeat;
+					background-size: contain;
+					border-radius: 100px;
+					background-color: #efefef;
+					width: 80px;
+					height: 80px;
+				}
+
 				& .fc-createEventButton-button {
 					padding: 19px 32px;
 

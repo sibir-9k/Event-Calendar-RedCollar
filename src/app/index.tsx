@@ -6,7 +6,13 @@ function App() {
 	return (
 		<div className="app">
 			<Header />
-			<Calendar />
+			<Calendar title={''} extendedProps={{
+        location: '',
+        dateStart: '',
+        description: '',
+        participants: [],
+        photos: []
+      }} id={0} />
 		</div>
 	);
 }

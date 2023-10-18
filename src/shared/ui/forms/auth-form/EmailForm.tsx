@@ -1,11 +1,12 @@
-import { FC, useState, useEffect } from 'react';
-import axios from 'axios';
+import { FC, useState } from 'react';
+import { api } from 'app/api/config';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { RegistrationForm } from '../registration-form/RegistrationForm';
 import OpenEye from '@/public/images/open-eye.svg';
 import CloseEye from '@/public/images/close-eye.svg';
 
 import '../FormsStyle.scss';
+import { checkRegular, emailReg, passwordReg } from 'app/utils/regular';
 
 interface AuthForm {
 	email: string;
@@ -41,31 +42,21 @@ export const EmailForm: FC<EmailFormProps> = ({
 		const { email, password } = formData;
 
 		try {
-			const response = await axios.get(`https://planner.rdclr.ru/api/taken-emails/${email}`);
+			const response = await api.get(`taken-emails/${email}`);
 			const userExists = response.status;
 
 			if (userExists === 200 || userExists === 204) {
 				setCheckEmail(true);
 				setEmailSubmitted(true);
-
 				if (password) {
-					const loginResponse = await axios.post(
-						`https://planner.rdclr.ru/api/auth/local`,
-						{
-							identifier: email,
-							password: password,
-						},
-						{
-							headers: {
-								'Content-Type': 'application/json; charset=utf-8',
-							},
-						}
-					);
+					const loginResponse = await api.post(`auth/local`, {
+						identifier: email,
+						password: password,
+					});
 					const result = loginResponse.data;
 					localStorage.setItem('token', result.jwt);
 					setIsAuthUser(true);
 					setIsAuthModalOpen(false);
-					console.log(result);
 				}
 			}
 		} catch (error) {
@@ -84,13 +75,9 @@ export const EmailForm: FC<EmailFormProps> = ({
 			if (value.length > 0) {
 				setDisabledBtn(false);
 			}
-			setEmailValid(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value));
+			setEmailValid(checkRegular(emailReg, value));
 		} else if (name === 'password') {
-			setPasswordValid(
-				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,:;?!*+%<>@[\]{}\/\\_{}$#])[A-Za-z\d.,:;?!*+%<>@[\]{}\/\\_{}$#]{8,32}$/.test(
-					value
-				)
-			);
+			setPasswordValid(checkRegular(passwordReg, value));
 		}
 	};
 
@@ -107,7 +94,7 @@ export const EmailForm: FC<EmailFormProps> = ({
 										{...register('email', {
 											required: true,
 											pattern: {
-												value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+												value: emailReg,
 												message: 'Некорректный email',
 											},
 										})}
@@ -116,7 +103,7 @@ export const EmailForm: FC<EmailFormProps> = ({
 									/>
 									{errors?.email && <span className="error">{errors.email.message}</span>}
 								</div>
-								{disabledBtn ? (
+								{!emailValid && disabledBtn ? (
 									<button type="submit" disabled>
 										Далее
 									</button>
@@ -132,7 +119,13 @@ export const EmailForm: FC<EmailFormProps> = ({
 								<div className="input-block">
 									<input
 										type={openPassword ? 'text' : 'password'}
-										{...register('password', { required: true })}
+										{...register('password', {
+											required: true,
+											pattern: {
+												value: passwordReg,
+												message: 'Некорректный пароль',
+											},
+										})}
 										placeholder="Пароль"
 										onChange={handleChange}
 									/>
@@ -140,12 +133,12 @@ export const EmailForm: FC<EmailFormProps> = ({
 										<img src={openPassword ? OpenEye : CloseEye} />
 									</div>
 								</div>
-								{passwordValid ? (
-									<button type="submit" className="active">
+								{!passwordValid && disabledBtn ? (
+									<button type="submit" disabled>
 										Войти
 									</button>
 								) : (
-									<button type="submit" disabled>
+									<button type="submit" className="active">
 										Войти
 									</button>
 								)}

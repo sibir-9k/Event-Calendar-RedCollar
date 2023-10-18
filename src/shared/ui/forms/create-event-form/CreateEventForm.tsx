@@ -1,16 +1,30 @@
-import { FC, useState, } from 'react';
-import axios from 'axios';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import './CreateEventForm.scss';
 import { UploadFile } from './UploadFile/UploadFile';
 import { CustomDatePicker } from './DatePicker/DatePicker';
 
+interface Participants {
+	id: number;
+	username: string;
+}
+
+interface Photos {
+	id: number;
+	name: string;
+	url: string;
+	src: string;
+}
+
 interface CreateEventForm {
 	title: string;
 	description: string;
 	dateStart: string;
+	dateEnd: string;
 	location: string;
-	participants: number[];
+	participants: Participants[];
+	time: string;
+	photos: Photos[];
 }
 
 export const CreateEventForm: FC = () => {
@@ -20,8 +34,6 @@ export const CreateEventForm: FC = () => {
 
 	const onSubmit: SubmitHandler<CreateEventForm> = (formData) => {
 		console.log(formData);
-
-    
 	};
 
 	return (
@@ -38,7 +50,7 @@ export const CreateEventForm: FC = () => {
 							required
 						/>
 						<input type="text" {...register('participants')} placeholder="Участники" />
-						<UploadFile />
+						<UploadFile register={register} name="photos" />
 					</div>
 
 					<div className="right-block">
@@ -56,7 +68,7 @@ export const CreateEventForm: FC = () => {
 								placeholder="Конец"
 							/>
 						</div>
-						<input {...register('dateStart')} type="text" placeholder="Время*" required />
+						<input {...register('time')} type="text" placeholder="Время*" required />
 						<input {...register('location')} type="text" placeholder="Место проведения*" required />
 					</div>
 				</div>

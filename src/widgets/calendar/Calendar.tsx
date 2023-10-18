@@ -1,17 +1,14 @@
 import { FC, useEffect, useState } from 'react';
-import axios from 'axios';
+import { api } from 'app/api/config';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Modal } from 'widgets/modal/Modal';
 import { ModalEvent } from 'shared/ui';
 import { EmailForm } from 'shared/ui/forms/auth-form/EmailForm';
-import userAvatar from '@/public/images/user-avatar.svg';
+import { CreateEventForm } from 'shared/ui/forms/create-event-form/CreateEventForm';
 
 import './Calendar.scss';
-import {
-	CreateEventForm,
-	CreateEventFrom,
-} from 'shared/ui/forms/create-event-form/CreateEventForm';
+import { EventInput } from '@fullcalendar/core/index.js';
 
 interface Participants {
 	id: number;
@@ -25,8 +22,9 @@ interface Photos {
 	src: string;
 }
 
-interface Event {
+interface Event extends EventInput {
 	title: string;
+	id: number;
 	extendedProps: {
 		location: string;
 		dateStart: string;
@@ -38,14 +36,12 @@ interface Event {
 
 export const Calendar: FC<Event> = () => {
 	const [isAuthUser, setIsAuthUser] = useState(false);
-	const [events, setEvents] = useState<Event[]>([]);
+	const [events, setEvents] = useState<EventInput[]>([]);
 	const [checkEmailInDB, setCheckEmailInDB] = useState(false);
 	const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-	const [userAvatar, setUserAvatar] = useState('');
-	const [openCreateEvent, setOpenCreateEvent] = useState(true);
+	const [openCreateEvent, setOpenCreateEvent] = useState(false);
 
-	// 1 способ
 	const closeModal = () => {
 		if (currentEvent) {
 			setCurrentEvent(null);
@@ -61,15 +57,16 @@ export const Calendar: FC<Event> = () => {
 		}
 	};
 
-	const openAuthModal = () => {
+	const openAuthModal = (value) => {
 		setCurrentEvent(null);
-		setIsAuthModalOpen(true);
+		setIsAuthModalOpen(value);
 	};
+
 
 	useEffect(() => {
 		async function getEvents() {
 			try {
-				const response = await axios.get('https://planner.rdclr.ru/api/events?populate=*');
+				const response = await api.get('events?populate=*');
 				const data = response.data.data;
 				data.forEach((event: { start: string; dateStart: string; className?: string }) => {
 					event.start = event.dateStart.split('T')[0];
@@ -77,7 +74,7 @@ export const Calendar: FC<Event> = () => {
 						event.className = 'past';
 					}
 				});
-				setEvents(data);
+				setEvents(data as EventInput[]);
 			} catch (error) {
 				console.error(error);
 			}
@@ -86,7 +83,8 @@ export const Calendar: FC<Event> = () => {
 		getEvents();
 	}, []);
 
-	const handleEventClick = (info): void => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleEventClick = (info: any): void => {
 		setCurrentEvent(info.event);
 	};
 
@@ -107,7 +105,6 @@ export const Calendar: FC<Event> = () => {
 		return <div className={`fc-event-title ${arg?.event?.classNames[0]}`}>{arg.event.title}</div>;
 	}
 
-
 	return (
 		<>
 			{isAuthUser ? (
@@ -121,12 +118,6 @@ export const Calendar: FC<Event> = () => {
 					height={821}
 					customButtons={{
 						createEventButton,
-						// userAvatarButton: {
-						// 	text: `<img src="${userAvatar}" alt="User Avatar" />`,
-						// 	click: function () {
-						// 		// Действия при нажатии на иконку с аватаром пользователя
-						// 	},
-						// },
 					}}
 					events={events}
 					eventClick={handleEventClick}
@@ -186,11 +177,11 @@ export const Calendar: FC<Event> = () => {
 					/>
 				</Modal>
 			)}
-			{/* {openCreateEvent && (
+			{openCreateEvent && (
 				<Modal title="Создание события" closeModal={closeModal}>
 					<CreateEventForm />
 				</Modal>
-			)} */}
+			)}
 		</>
 	);
 };

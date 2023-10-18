@@ -1,45 +1,42 @@
-import { FC, useState, useRef } from 'react';
-import axios from 'axios';
+import { FC, useState, useRef, ChangeEvent, DragEvent } from 'react';
+import { apiToken } from 'app/api/config';
 
-export const UploadFile: FC = () => {
+interface UploadFileProps {
+	register: unknown;
+	name: string;
+}
+
+export const UploadFile: FC<UploadFileProps> = ({ register, name }) => {
+  
 	const [drag, setDrag] = useState(false);
-	const fileInputRef = useRef(null);
-	const [uploadedImages, setUploadedImages] = useState([]);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	// const [uploadedImages, setUploadedImages] = useState([]);
 
-	const dragStartHandler = (e) => {
+	const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		setDrag(true);
 	};
 
-	const dragLeaveHandler = (e) => {
+	const dragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		setDrag(false);
 	};
 
-	const onDropHandler = (e) => {
+	const onDropHandler = (e: DragEvent<HTMLDivElement>) => {
 		e.preventDefault();
-		let filesPictures = [...e.dataTransfer.files];
+		const filesPictures = [...e.dataTransfer.files];
 
 		const formData = new FormData();
 		filesPictures.map((picture) => {
 			formData.append('file', picture);
 		});
 
-		// Upload the files to the server and get the URLs of the uploaded images
-		// You can use a library like axios to make the API request
-		// Here, I'm assuming you have a function called uploadImages that returns a Promise with the URLs
 		uploadImages(formData);
 	};
 
-	const uploadImages = async (formData) => {
-		const token = localStorage.getItem('token');
+	const uploadImages = async (formData: FormData) => {
 		try {
-			const response = await axios.post(`https://planner.rdclr.ru/api/upload`, formData, {
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8',
-					Authorization: `Bearer ${token}`,
-				},
-			});
+			const response = await apiToken.post(`upload`, formData);
 			const result = response.data;
 			console.log(result);
 		} catch (error) {
@@ -53,10 +50,9 @@ export const UploadFile: FC = () => {
 		}
 	};
 
-	const handleFileSelect = (e) => {
+	const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files) {
-			// Handle the selected files here
 			console.log(files);
 		}
 	};

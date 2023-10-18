@@ -3,11 +3,11 @@ import { ModalEventsDate } from '..';
 import { ModalEventsSlider } from '..';
 import { ModalEventsText } from '..';
 import { ModalEventsUsers } from '..';
-// import { Button } from '../button/Button';
-import './ModalEvent.scss';
-import axios from 'axios';
+
 import { Modal } from 'widgets/modal/Modal';
 import { ModalQuestion } from '../modals-question/ModalQuestion';
+import { apiToken } from 'app/api/config';
+import './ModalEvent.scss';
 
 interface Participants {
 	id: number;
@@ -33,30 +33,18 @@ interface ModalEventProps {
 			photos: Photos[];
 		};
 	};
-	openAuthModal: Function;
+	openAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
 	isAuthUser: boolean;
 }
 
 export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUser }) => {
 	const [subscribedEvent, setSubscribedEvent] = useState(true);
 	const [openAskQuestion, setOpenAskQuestion] = useState(false);
-	// const [answerQuestion, setAnswerQuestion] = useState(false);
 
 	const joiningEvent = async () => {
-		const token = localStorage.getItem('token');
 		const idEvent = Number(event.id);
-
 		try {
-			const response = await axios.post(
-				`https://planner.rdclr.ru/api/events/${idEvent}/join`,
-				{},
-				{
-					headers: {
-						'Content-Type': 'application/json; charset=utf-8',
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await apiToken.post(`events/${idEvent}/join`, {});
 			const result = response.data;
 			console.log(result);
 			setSubscribedEvent(true);
@@ -72,20 +60,9 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 	};
 
 	const leaveEvent = async () => {
-		const token = localStorage.getItem('token');
 		const idEvent = Number(event.id);
-
 		try {
-			const response = await axios.post(
-				`https://planner.rdclr.ru/api/events/${idEvent}/leave`,
-				{},
-				{
-					headers: {
-						'Content-Type': 'application/json; charset=utf-8',
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await apiToken.post(`events/${idEvent}/leave`, {});
 			const result = response.data;
 			console.log(result);
 			setOpenAskQuestion(false);
@@ -116,7 +93,7 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 				</h4>
 			) : !isAuthUser ? (
 				<h4 className="modal-bottom">
-					<button className="auth-btn" onClick={() => openAuthModal()}>
+					<button className="auth-btn" onClick={() => openAuthModal(true)}>
 						Войдите
 					</button>
 					, чтобы присоединиться к событию

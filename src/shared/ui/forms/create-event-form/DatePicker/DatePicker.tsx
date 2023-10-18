@@ -23,7 +23,7 @@ export const CustomDatePicker: FC<CustomDatePickerProps> = forwardRef(
 					dateFormat="dd.MM.yyyy"
 					placeholderText={placeholder}
 					required
-					ref={ref}
+					ref={ref as React.RefObject<DatePicker>}
 				/>
 			</div>
 		);
