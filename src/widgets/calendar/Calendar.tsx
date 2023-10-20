@@ -45,7 +45,6 @@ export const Calendar: FC<Event> = () => {
 	const [fullForm, setFullForm] = useState([]);
 	const [openErrorEvent, setOpenErrorEvent] = useState(false);
 	const [openQustion, setOpenQuestion] = useState(false);
-	const [closeQuestion, setCloseQuestion] = useState(false);
 
 	const closeModal = () => {
 		if (currentEvent !== null) {
@@ -59,11 +58,6 @@ export const Calendar: FC<Event> = () => {
 
 		if (openCreateEvent) {
 			setOpenQuestion(true);
-		}
-
-		if (closeQuestion) {
-			setOpenQuestion(false);
-			setOpenCreateEvent(false);
 		}
 
 		if (openSuccessfullyEvent) {
@@ -173,6 +167,8 @@ export const Calendar: FC<Event> = () => {
 		return classNames;
 	};
 
+	console.log(closeQuestion);
+
 	return (
 		<>
 			{isAuthUser ? (
@@ -236,7 +232,6 @@ export const Calendar: FC<Event> = () => {
 			{openCreateEvent && (
 				<Modal title="Создание события" closeModal={closeModal}>
 					<CreateEventForm
-						setCloseQuestion={setCloseQuestion}
 						setOpenQuestion={setOpenQuestion}
 						openQustion={openQustion}
 						setOpenCreateEvent={setOpenCreateEvent}

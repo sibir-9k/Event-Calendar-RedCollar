@@ -43,7 +43,6 @@ interface CreateEventFormProps {
 	setOpenErrorEvent: React.Dispatch<React.SetStateAction<boolean>>;
 	openQustion: boolean;
 	setOpenQuestion: React.Dispatch<React.SetStateAction<boolean>>;
-	setCloseQuestion: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CreateEventForm: FC<CreateEventFormProps> = ({
@@ -52,7 +51,6 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 	setFullForm,
 	setOpenErrorEvent,
 	openQustion,
-	setCloseQuestion,
 	setOpenQuestion,
 }) => {
 	const { register, handleSubmit, formState } = useForm();
@@ -238,7 +236,10 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 			</form>
 			{openQustion && (
 				<Modal title="Передумали создавать событие?" closeModal={() => setOpenQuestion(false)}>
-					<ModalQuestion setOpenQuestion={setOpenQuestion} setCloseQuestion={setCloseQuestion} />
+					<ModalQuestion
+						setOpenQuestion={setOpenQuestion}
+						setOpenCreateEvent={setOpenCreateEvent}
+					/>
 				</Modal>
 			)}
 			{openEventJoining && (
