@@ -24,8 +24,7 @@ interface Photos {
 	src: string;
 }
 
-interface CreateEventForm {
-	append(arg0: string, file: never): unknown;
+interface ICreateEventForm {
 	title: string;
 	description: string;
 	dateStart: string;
@@ -45,6 +44,11 @@ interface CreateEventFormProps {
 	setOpenQuestion: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface User {
+	id: string;
+	username: string;
+}
+
 export const CreateEventForm: FC<CreateEventFormProps> = ({
 	setOpenCreateEvent,
 	setOpenSuccessfullyEvent,
@@ -56,12 +60,11 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 	const { register, handleSubmit, formState } = useForm();
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
-	const [formSelectedUsers, setFormSelectedUsers] = useState([]);
+	const [formSelectedUsers, setFormSelectedUsers] = useState<User[]>([]);
 	const [openEventJoining, setOpenEventJoining] = useState(false);
 	const [openErrorEventJoining, setOpenErrorEventJoining] = useState(false);
-	const [uploadedImages, setUploadedImages] = useState([]);
+	const [uploadedImages, setUploadedImages] = useState<File[]>([]);
 	const [organiserName, setOrganiserName] = useState('');
-	const [, setPreview] = useState(null);
 	const [selectedImage, setSelectedImage] = useState([]);
 
 	const { errors } = formState;
@@ -100,7 +103,7 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 		}
 	};
 
-	const onSubmit: SubmitHandler<CreateEventForm> = async (formData) => {
+	const onSubmit: SubmitHandler<ICreateEventForm> = async (formData) => {
 		const { title, description, location, time } = formData;
 		const updTime: string[] = time.split(':');
 		const hours = parseInt(updTime[0]);
@@ -158,16 +161,20 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 								{...register('title', { required: 'Заполните поле' })}
 								placeholder="Название*"
 							/>
-							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+							{errors?.title && <p className="error">{errors.title.message?.toString()}</p>}
 						</div>
 						<div>
 							<textarea
 								className="description"
-								{...register('description', { required: 'Заполните поле' })}
+								{...register('description', {
+									required: 'Заполните поле',
+								})}
 								placeholder="Описание*"
 								required
 							/>
-							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+							{errors?.description && (
+								<p className="error">{errors.description.message?.toString()}</p>
+							)}
 						</div>
 						<UserSelector
 							{...register('participants')}
@@ -184,7 +191,9 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 									onChange={(date: Date | null) => setStartDate(date)}
 									placeholder="Начало*"
 								/>
-								{errors?.title && <p className="error">{errors?.title?.message}</p>}
+								{errors?.dateStart && (
+									<p className="error">{errors.dateStart.message?.toString()}</p>
+								)}
 							</div>
 
 							<CustomDatePicker
@@ -201,7 +210,7 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 								placeholder="Время*"
 								required
 							/>
-							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+							{errors?.time && <p className="error">{errors.time.message?.toString()}</p>}
 						</div>
 						<div>
 							<input
@@ -210,7 +219,7 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 								placeholder="Место проведения*"
 								required
 							/>
-							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+							{errors?.location && <p className="error">{errors.location.message?.toString()}</p>}
 						</div>
 
 						<div className="organiser">
@@ -227,7 +236,6 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 						{...register('photos')}
 						uploadedImages={uploadedImages}
 						setUploadedImages={setUploadedImages}
-						setPreview={setPreview}
 					/>
 				</div>
 				<button type="submit" className="create-btn">

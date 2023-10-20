@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Unicorn from '@/public/images/unicorn.svg';
 import './EventJoining.scss';
-import { ModalEventsDate } from 'shared/ui';
 
 interface FullForm {
 	startDate: string;
@@ -14,7 +13,6 @@ interface EventCreateProps {
 }
 
 export const EventCreate: FC<EventCreateProps> = ({ fullForm }) => {
-	console.log(fullForm);
 	return (
 		<>
 			<div className="event-joining">

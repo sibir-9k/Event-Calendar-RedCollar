@@ -33,9 +33,11 @@ interface ModalEventProps {
 			photos: Photos[];
 		};
 	};
-	openAuthModal: React.Dispatch<React.SetStateAction<boolean>>;
+	openAuthModal: OpenAuthModal;
 	isAuthUser: boolean;
 }
+
+type OpenAuthModal = React.Dispatch<React.SetStateAction<boolean>> | ((value: boolean) => void);
 
 export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUser }) => {
 	const [subscribedEvent, setSubscribedEvent] = useState(true);
@@ -44,8 +46,7 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 	const joiningEvent = async () => {
 		const idEvent = Number(event.id);
 		try {
-			const response = await apiToken.post(`events/${idEvent}/join`, {});
-			const result = response.data;
+			await apiToken.post(`events/${idEvent}/join`, {});
 			setSubscribedEvent(true);
 		} catch (error) {
 			console.log(error);

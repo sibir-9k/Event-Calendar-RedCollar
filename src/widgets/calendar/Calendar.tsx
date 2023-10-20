@@ -6,7 +6,12 @@ import { Modal } from 'widgets/modal/Modal';
 import { EventCreate, EventJoiningError, ModalEvent } from 'shared/ui';
 import { EmailForm } from 'shared/ui/forms/auth-form/EmailForm';
 import { CreateEventForm } from 'shared/ui/forms/create-event-form/CreateEventForm';
-import { EventInput } from '@fullcalendar/core/index.js';
+import {
+	ClassNamesGenerator,
+	EventClickArg,
+	EventContentArg,
+	EventInput,
+} from '@fullcalendar/core/index.js';
 import './Calendar.scss';
 
 interface Participants {
@@ -38,7 +43,7 @@ export const Calendar: FC<Event> = () => {
 	const [events, setEvents] = useState<EventInput[]>([]);
 	const [checkEmailInDB, setCheckEmailInDB] = useState(false);
 	const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
-	const [myId, setMyId] = useState(false);
+	const [myId, setMyId] = useState(0);
 	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 	const [openCreateEvent, setOpenCreateEvent] = useState(false);
 	const [openSuccessfullyEvent, setOpenSuccessfullyEvent] = useState(false);
@@ -90,13 +95,7 @@ export const Calendar: FC<Event> = () => {
 				const response = await api.get('events?pagination[pageSize]=50&populate=*');
 				const data = response.data.data;
 				data.forEach(
-					(event: {
-						[x: string]: any;
-						owner: any;
-						start: string;
-						dateStart: string;
-						className?: string;
-					}) => {
+					(event: { owner: object; start: string; dateStart: string; className?: string }) => {
 						event.start = event.dateStart.split('T')[0];
 						if (new Date(event.start) < new Date()) {
 							event.className = 'past';
@@ -110,13 +109,12 @@ export const Calendar: FC<Event> = () => {
 			}
 		}
 		getEvents();
-
-		return getEvents;
 	}, []);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleEventClick = useCallback((info: EventClickArg) => {
-		setCurrentEvent(info.event);
+		const event = info.event as unknown as Event;
+		setCurrentEvent(event);
 	}, []);
 
 	const сustomButton = useMemo(
@@ -140,12 +138,16 @@ export const Calendar: FC<Event> = () => {
 	);
 
 	function renderEventContent(arg: {
-		event: { classNames: string[]; title: string; extendedProps: { owner: { id: number } } };
+		event: {
+			classNames: string[];
+			title: string;
+			extendedProps: { owner: { id: number }; participants: [{ id: number }] };
+		};
 	}) {
 		const { event } = arg;
 		const classNames = [...event.classNames];
 
-		if (event.extendedProps.owner?.id === myId) {
+		if (event.extendedProps?.owner?.id === myId) {
 			classNames.push('owner');
 		} else {
 			const isGuest = arg.event.extendedProps.participants?.some(
@@ -159,15 +161,17 @@ export const Calendar: FC<Event> = () => {
 		return <div className={`fc-event-title ${classNames.join(' ')}`}>{event.title}</div>;
 	}
 
-	const eventClassNames = (arg: { event: { extendedProps: { className: string } } }) => {
+	const eventClassNames = (arg: {
+		event: {
+			extendedProps: { className: string };
+		};
+	}) => {
 		const classNames = [];
 		if (arg.event.extendedProps.className === 'past') {
 			classNames.push('past');
 		}
 		return classNames;
 	};
-
-	console.log(closeQuestion);
 
 	return (
 		<>
@@ -191,7 +195,7 @@ export const Calendar: FC<Event> = () => {
 						end: 'title prev,next createEventButton userAvatarButton',
 					}}
 					eventContent={renderEventContent}
-					eventClassNames={eventClassNames}
+					eventClassNames={eventClassNames as unknown as ClassNamesGenerator<EventContentArg>}
 				/>
 			) : (
 				<FullCalendar
@@ -211,7 +215,7 @@ export const Calendar: FC<Event> = () => {
 						end: 'title prev,next сustomButton',
 					}}
 					eventContent={renderEventContent}
-					eventClassNames={eventClassNames}
+					eventClassNames={eventClassNames as unknown as ClassNamesGenerator<EventContentArg>}
 				/>
 			)}
 			{currentEvent && (

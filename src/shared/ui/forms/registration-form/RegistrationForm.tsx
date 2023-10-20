@@ -39,7 +39,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 	const onSubmit: SubmitHandler<RegistrationForm> = async (formDataReg) => {
 		try {
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const response = await api.post(`auth/local/register`, {
+			await api.post(`auth/local/register`, {
 				username: formDataReg.name,
 				email: emailRegistration,
 				password: formDataReg.password,
