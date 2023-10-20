@@ -37,16 +37,23 @@ interface CreateEventForm {
 
 interface CreateEventFormProps {
 	setOpenCreateEvent: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenSuccessfullyEvent: React.Dispatch<React.SetStateAction<boolean>>;
+	setFullForm: React.Dispatch<SetStateAction<never[]>>;
+	setOpenErrorEvent: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const CreateEventForm: FC<CreateEventFormProps> = ({ setOpenCreateEvent }) => {
+export const CreateEventForm: FC<CreateEventFormProps> = ({
+	setOpenCreateEvent,
+	setOpenSuccessfullyEvent,
+	setFullForm,
+	setOpenErrorEvent,
+}) => {
 	const { register, handleSubmit } = useForm();
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [formSelectedUsers, setFormSelectedUsers] = useState([]);
 	const [openEventJoining, setOpenEventJoining] = useState(false);
 	const [openErrorEventJoining, setOpenErrorEventJoining] = useState(false);
-	const [fullForm, setFullForm] = useState([]);
 	const [uploadedImages, setUploadedImages] = useState([]);
 	const [organiserName, setOrganiserName] = useState('');
 	const [preview, setPreview] = useState(null);
@@ -61,7 +68,7 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({ setOpenCreateEvent }
 			const response = await apiToken.get('users/me');
 			setOrganiserName(response.data.username);
 		} catch (error) {
-			console.log;
+			console.log(error);
 		}
 	};
 
@@ -122,12 +129,14 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({ setOpenCreateEvent }
 			}
 
 			setFullForm(response.data);
+			setOpenSuccessfullyEvent(true);
 			setOpenEventJoining(true);
 			setOpenCreateEvent(false);
 		} catch (error) {
 			console.log(error);
 			setOpenErrorEventJoining(true);
 			setOpenCreateEvent(false);
+			setOpenErrorEvent(true);
 		}
 	};
 
@@ -137,9 +146,8 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({ setOpenCreateEvent }
 				<div className="create-event__wrapper">
 					<div className="left-block">
 						<input type="text" {...register('title')} placeholder="Название*" required />
-						<input
+						<textarea
 							className="description"
-							type="text"
 							{...register('description')}
 							placeholder="Описание*"
 							required
@@ -184,7 +192,15 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({ setOpenCreateEvent }
 						setPreview={setPreview}
 					/>
 				</div>
-				<button className="create-btn">Создать</button>
+				{/* <button className="create-btn">Создать</button> */}
+
+				{ (
+					<button className="create-btn" disabled>
+						Создать
+					</button>
+				) : (
+					<button className="create-btn">Создать</button>
+				)}
 			</form>
 			{openEventJoining && (
 				<Modal title="" closeModal={closeModal}>

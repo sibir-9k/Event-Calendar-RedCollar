@@ -3,12 +3,11 @@ import { api, apiToken } from 'app/api/config';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Modal } from 'widgets/modal/Modal';
-import { ModalEvent } from 'shared/ui';
+import { EventCreate, EventJoiningError, ModalEvent } from 'shared/ui';
 import { EmailForm } from 'shared/ui/forms/auth-form/EmailForm';
 import { CreateEventForm } from 'shared/ui/forms/create-event-form/CreateEventForm';
-
-import './Calendar.scss';
 import { EventInput } from '@fullcalendar/core/index.js';
+import './Calendar.scss';
 
 interface Participants {
 	id: number;
@@ -42,6 +41,9 @@ export const Calendar: FC<Event> = () => {
 	const [myId, setMyId] = useState(false);
 	const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 	const [openCreateEvent, setOpenCreateEvent] = useState(false);
+	const [openSuccessfullyEvent, setOpenSuccessfullyEvent] = useState(false);
+	const [fullForm, setFullForm] = useState([]);
+	const [openErrorEvent, setOpenErrorEvent] = useState(false);
 
 	const closeModal = () => {
 		if (currentEvent !== null) {
@@ -56,6 +58,14 @@ export const Calendar: FC<Event> = () => {
 		if (openCreateEvent) {
 			setOpenCreateEvent(false);
 		}
+
+		if (openSuccessfullyEvent) {
+			setOpenSuccessfullyEvent(false);
+		}
+
+		if (openErrorEvent) {
+			setOpenErrorEvent(false);
+		}
 	};
 
 	const openAuthModal = (value: boolean) => {
@@ -65,7 +75,7 @@ export const Calendar: FC<Event> = () => {
 
 	const getMyInfo = async () => {
 		const response = await apiToken.get('users/me');
-		console.log(response);
+
 		setMyId(response.data.id);
 	};
 
@@ -102,7 +112,7 @@ export const Calendar: FC<Event> = () => {
 	}, [events]);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const handleEventClick = useCallback((info: { event: SetStateAction<Event | null> }) => {
+	const handleEventClick = useCallback((info: EventClickArg) => {
 		setCurrentEvent(info.event);
 	}, []);
 
@@ -125,10 +135,6 @@ export const Calendar: FC<Event> = () => {
 		}),
 		[]
 	);
-
-	// function renderEventContent(arg: { event: { classNames: string[]; title: string } }) {
-	// 	return <div className={`fc-event-title ${arg?.event?.classNames[0]}`}>{arg.event.title}</div>;
-	// }
 
 	function renderEventContent(arg: {
 		event: { classNames: string[]; title: string; extendedProps: { owner: { id: number } } };
@@ -220,7 +226,22 @@ export const Calendar: FC<Event> = () => {
 			)}
 			{openCreateEvent && (
 				<Modal title="Создание события" closeModal={closeModal}>
-					<CreateEventForm setOpenCreateEvent={setOpenCreateEvent} />
+					<CreateEventForm
+						setOpenCreateEvent={setOpenCreateEvent}
+						setOpenSuccessfullyEvent={setOpenSuccessfullyEvent}
+						setFullForm={setFullForm}
+						setOpenErrorEvent={setOpenErrorEvent}
+					/>
+				</Modal>
+			)}
+			{openSuccessfullyEvent && (
+				<Modal title="" closeModal={closeModal}>
+					<EventCreate fullForm={fullForm} />
+				</Modal>
+			)}
+			{openErrorEvent && (
+				<Modal title="" closeModal={closeModal}>
+					<EventJoiningError setOpenErrorEvent={setOpenErrorEvent} />
 				</Modal>
 			)}
 		</>

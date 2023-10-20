@@ -47,7 +47,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 			const result = response.data;
 			setIsAuthUser(true);
 			setIsAuthModalOpen(false);
-			console.log(result);
 		} catch (error) {
 			console.log(error);
 		}

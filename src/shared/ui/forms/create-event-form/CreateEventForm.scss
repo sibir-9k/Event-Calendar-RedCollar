@@ -33,7 +33,8 @@
 		}
 	}
 
-	input {
+	input,
+	textarea {
 		box-sizing: border-box;
 		width: 100%;
 		display: flex;
@@ -55,6 +56,11 @@
 			line-height: 22px;
 			letter-spacing: -0.4px;
 		}
+	}
+
+	textarea {
+		resize: none;
+		height: 153px;
 	}
 
 	.create-btn {

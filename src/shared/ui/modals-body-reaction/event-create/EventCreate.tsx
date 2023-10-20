@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Button } from 'shared/ui/button/Button';
 import Unicorn from '@/public/images/unicorn.svg';
 import './EventJoining.scss';
-
+import { ModalEventsDate } from 'shared/ui';
 
 interface FullForm {
 	startDate: string;
@@ -24,15 +24,14 @@ export const EventCreate: FC<EventCreateProps> = ({ fullForm }) => {
 					<span className="name-red">{fullForm.title}</span>
 				</div>
 				<div className="event-joining__bottom">
-					<div className="bottom-top">{fullForm.startDate}</div>
-					<div className="bottom-top"> пятница | 21 сентября | 12:00</div>
+					{/* <ModalEventsDate eventDate={fullForm.startDate} /> */}
 					<div className="bottom">{fullForm.locale}</div>
 				</div>
 			</div>
 			<div className="rock-hand">
 				<img src={Unicorn} alt="" />
 			</div>
-			<Button>Отлично</Button>
+			<button className='custom-btn'>Отлично</button>
 		</>
 	);
 };

@@ -3,10 +3,10 @@ import Bird from '@/public/images/bird.svg';
 import './EventJoiningError.scss';
 
 interface EventJoiningErrorProps {
-	setOpenErrorEventJoining: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenErrorEvent: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const EventJoiningError: FC<EventJoiningErrorProps> = ({ setOpenErrorEventJoining }) => {
+export const EventJoiningError: FC<EventJoiningErrorProps> = ({ setOpenErrorEvent }) => {
 	return (
 		<>
 			<div className="event-joining-error">
@@ -18,7 +18,9 @@ export const EventJoiningError: FC<EventJoiningErrorProps> = ({ setOpenErrorEven
 			<div className="bird">
 				<img src={Bird} alt="" />
 			</div>
-			<button onClick={() => setOpenErrorEventJoining(false)}>Хорошо</button>
+			<button onClick={() => setOpenErrorEvent(false)} className="custom-btn">
+				Хорошо
+			</button>
 		</>
 	);
 };

@@ -46,7 +46,6 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 		try {
 			const response = await apiToken.post(`events/${idEvent}/join`, {});
 			const result = response.data;
-			console.log(result);
 			setSubscribedEvent(true);
 		} catch (error) {
 			console.log(error);
