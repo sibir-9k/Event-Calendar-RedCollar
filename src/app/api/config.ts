@@ -17,3 +17,11 @@ export const apiToken = axios.create({
 		Authorization: `Bearer ${API_TOKEN}`,
 	},
 });
+
+export const apiTokenUploadImage = axios.create({
+	baseURL: BASE_URL,
+	headers: {
+		'Content-Type': 'multipart/form-data',
+		Authorization: `Bearer ${API_TOKEN}`,
+	},
+});

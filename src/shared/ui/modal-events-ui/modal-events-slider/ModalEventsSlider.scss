@@ -1,72 +1,66 @@
-.swiper-pagination-bullet {
-	width: 32px;
-	height: 4px;
-	border-radius: 4px;
-
-	&-active {
-		background-color: var(--main-colors-accent);
-	}
-}
-
-.modal__gallery__list {
-	.swiper-pagination {
+.modal-slider {
+	.slider-top {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
-		margin-top: 32px;
-	}
-}
+		margin-bottom: 32px;
 
-.swiper-horizontal {
-	margin-bottom: 48px;
-}
+		.custom-navigation {
+			display: flex;
+			gap: 8px;
 
-.swiper-pagination {
-	bottom: px;
-}
+			.prev-button,
+			.next-button {
+				padding: 8px 16px;
+				border-radius: 8px;
+				background: var(--system-colors-element);
 
-.swiper-slide {
-	img {
-		max-width: 260px;
-		max-height: 160px;
-		border-radius: 24px;
-	}
-}
-
-.slider-top {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 32px;
-
-	.custom-navigation {
-		display: flex;
-		gap: 8px;
-
-		.prev-button,
-		.next-button {
-			padding: 8px 16px;
-			border-radius: 8px;
-			background: var(--system-colors-element);
-
-			img {
-				width: 32px;
-				height: 32px;
+				img {
+					width: 32px;
+					height: 32px;
+				}
 			}
 		}
 	}
-}
 
-h3 {
-	font-family: Redcollar;
-	font-size: 24px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 24px;
-	letter-spacing: -0.48px;
-}
+	h3.slider-title {
+		font-family: Redcollar;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 24px;
+		letter-spacing: -0.48px;
+	}
 
-.swiper-pagination {
-	margin-top: 32px;
-	position: inherit;
+	.swiper-horizontal {
+		margin-bottom: 48px;
+	}
+
+	.swiper-pagination {
+		bottom: px;
+		margin-top: 32px;
+		position: inherit;
+
+		.swiper-pagination-bullet {
+			width: 32px;
+			height: 4px;
+			border-radius: 4px;
+
+			&-active {
+				background-color: var(--main-colors-accent);
+			}
+		}
+	}
+
+	.swiper-slide {
+		width: 250px;
+		height: 140px;
+		margin-right: 40px;
+		img {
+			width: 250px !important;
+			height: 140px !important;
+			border-radius: 24px;
+			margin-right: 40px !important;
+		}
+	}
 }

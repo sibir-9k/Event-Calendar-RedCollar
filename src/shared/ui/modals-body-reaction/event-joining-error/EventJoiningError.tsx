@@ -1,9 +1,13 @@
 import { FC } from 'react';
-import { Button } from 'shared/ui/button/Button';
+// import { Button } from 'shared/ui/button/Button';
 import Bird from '@/public/images/bird.svg';
 import './EventJoiningError.scss';
 
-export const EventJoiningError: FC = () => {
+interface EventJoiningErrorProps {
+	setOpenErrorEventJoining: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const EventJoiningError: FC<EventJoiningErrorProps> = ({ setOpenErrorEventJoining }) => {
 	return (
 		<>
 			<div className="event-joining-error">
@@ -15,7 +19,7 @@ export const EventJoiningError: FC = () => {
 			<div className="bird">
 				<img src={Bird} alt="" />
 			</div>
-			<Button>Хорошо</Button>
+			<button onClick={() => setOpenErrorEventJoining(false)}>Хорошо</button>
 		</>
 	);
 };

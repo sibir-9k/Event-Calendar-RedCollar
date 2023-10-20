@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import './EventJoining.scss';
 import { Button } from 'shared/ui/button/Button';
-import RockHand from '@/public/images/rock-hand.svg';
+// import RockHand from '@/public/images/rock-hand.svg';
+import Unicorn from '@/public/images/unicorn.svg';
 
 interface FullForm {
 	startDate: string;
@@ -9,17 +10,17 @@ interface FullForm {
 	title: string;
 }
 
-interface EventJoiningProps {
+interface EventCreateProps {
 	fullForm: FullForm;
 }
 
-export const EventJoining: FC<EventJoiningProps> = ({ fullForm }) => {
+export const EventCreate: FC<EventCreateProps> = ({ fullForm }) => {
 	return (
 		<>
 			<div className="event-joining">
-				<h2 className="title">Поздравлям!</h2>
+				<h2 className="title">Ура!</h2>
 				<div className="event-joining__top">
-					<p>Вы теперь участник события:</p>
+					<p>Вы добавили новое событие:</p>
 					<span className="name-red">{fullForm.title}</span>
 				</div>
 				<div className="event-joining__bottom">
@@ -29,7 +30,7 @@ export const EventJoining: FC<EventJoiningProps> = ({ fullForm }) => {
 				</div>
 			</div>
 			<div className="rock-hand">
-				<img src={RockHand} alt="" />
+				<img src={Unicorn} alt="" />
 			</div>
 			<Button>Отлично</Button>
 		</>

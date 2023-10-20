@@ -9,7 +9,7 @@ interface EventParticipant {
 
 interface ModalEventsUsersProps {
 	eventParticipants: EventParticipant[];
-	eventID: number;
+	eventID: string;
 }
 
 export const ModalEventsUsers: FC<ModalEventsUsersProps> = ({ eventParticipants, eventID }) => {
@@ -29,8 +29,8 @@ export const ModalEventsUsers: FC<ModalEventsUsersProps> = ({ eventParticipants,
 						</div>
 					</div>
 				)}
-				<div className="users-list">
-					{eventParticipants.slice(1, 4).map((user: EventParticipant) => (
+				<div className="participants-list">
+					{eventParticipants.slice(1, 6).map((user: EventParticipant) => (
 						<div className="user" key={user.id}>
 							<img src={AvatarUser} alt={user.username} className="user-avatar" />
 							<span className="user-name">{user.username}</span>
@@ -38,6 +38,11 @@ export const ModalEventsUsers: FC<ModalEventsUsersProps> = ({ eventParticipants,
 					))}
 					{eventParticipants.length > 5 && (
 						<div className="user-mask">
+							<div className="user-mask__avatar">
+								<img className='end-user' src={AvatarUser} alt="" />
+								<img className='end-user' src={AvatarUser} alt="" />
+								<img className='end-user' src={AvatarUser} alt="" />
+							</div>
 							<span>+{eventParticipants.length - 5}</span>
 						</div>
 					)}

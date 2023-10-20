@@ -19,6 +19,7 @@ interface ModalEventSliderProps {
 }
 
 export const ModalEventsSlider: FC<ModalEventSliderProps> = ({ eventPhoto }) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const sliderRef = useRef<any>(null);
 
 	if (eventPhoto.length === 0) return null;
@@ -62,7 +63,7 @@ export const ModalEventsSlider: FC<ModalEventSliderProps> = ({ eventPhoto }) => 
 				onSwiper={(swiper) => console.log(swiper)}>
 				{eventPhoto.map((photo: Photos) => {
 					return (
-						<SwiperSlide key={photo.id}>
+						<SwiperSlide key={photo.id} className='swiper-slide'>
 							<img src={`https://planner.rdclr.ru${photo.url}`} alt={photo.name} />
 						</SwiperSlide>
 					);

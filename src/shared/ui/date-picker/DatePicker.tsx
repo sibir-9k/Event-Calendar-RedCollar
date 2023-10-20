@@ -4,6 +4,7 @@ import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 
 registerLocale('ru', ru);
 import 'react-datepicker/dist/react-datepicker.css';
+import './DatePicker.scss';
 
 interface CustomDatePickerProps {
 	selected: Date | null;

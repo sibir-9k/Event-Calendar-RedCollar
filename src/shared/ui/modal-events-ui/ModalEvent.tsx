@@ -24,7 +24,7 @@ interface Photos {
 interface ModalEventProps {
 	event: {
 		title: string;
-		id: number;
+		id: string;
 		extendedProps: {
 			location: string;
 			dateStart: string;
@@ -83,7 +83,7 @@ export const ModalEvent: FC<ModalEventProps> = ({ event, openAuthModal, isAuthUs
 			)}
 			{event.extendedProps.photos && <ModalEventsSlider eventPhoto={event.extendedProps.photos} />}
 
-			{subscribedEvent ? (
+			{!subscribedEvent ? (
 				<h4 className="modal-bottom">
 					Вы присоединились к событию. Если передумали, можете
 					<button className="exit-btn" onClick={() => setOpenAskQuestion(true)}>

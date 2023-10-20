@@ -66,7 +66,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
 		setPasswordValid(checkRegular(passwordReg, value));
 	};
 
-	const warningText = `В пароле используйте от 8 до 32 символов: строчные и прописные латинские буквы (A-z), цифры (0-9) и спец символы ( . , : ; ? ! * + % - < > @ [ ] { } / \ _ {} $ # )`;
+	// eslint-disable-next-line no-irregular-whitespace
+	const warningText = `В пароле используйте от 8 до 32 символов: строчные и прописные латинские буквы (A-z), цифры (0-9) и спец символы ( . , : ; ? ! * + % - < > @ [ ] { } / \\ _ {} $ # )`;
 
 	return (
 		<div className="regist-form">
