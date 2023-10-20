@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { UploadFile } from '../../upload-file/UploadFile';
-import { CustomDatePicker } from '../../date-picker/DatePicker';
+import { UploadFile } from 'shared/ui/upload-file/UploadFile';
+import { CustomDatePicker } from 'shared/ui/date-picker/CustomDatePicker';
 import { UserSelector } from 'shared/ui/user-selector/UserSelector';
 import { apiToken, apiTokenUploadImage } from 'app/api/config';
 import { Modal } from 'widgets/modal/Modal';

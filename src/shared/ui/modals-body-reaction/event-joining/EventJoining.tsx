@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import './EventJoining.scss';
 import { Button } from 'shared/ui/button/Button';
 import RockHand from '@/public/images/rock-hand.svg';
+import './EventJoining.scss';
+
 
 interface FullForm {
 	startDate: string;

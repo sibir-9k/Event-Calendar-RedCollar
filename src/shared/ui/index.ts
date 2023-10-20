@@ -1,3 +1,7 @@
+export { ModalQuestion } from './modals-question/ModalQuestion';
+export { EventJoiningError } from './modals-body-reaction/event-joining-error/EventJoiningError';
+export { EventJoining } from 'shared/ui/modals-body-reaction/event-joining/EventJoining';
+export { EventCreate } from './modals-body-reaction/event-create/EventCreate';
 export { Header } from './header/Header';
 export { LogoTitle } from './logo-title/LogoTitle';
 export { ModalEventsDate } from './modal-events-ui/modal-events-date/ModalEventsDate';
@@ -5,3 +9,9 @@ export { ModalEventsText } from './modal-events-ui/modal-events-text/ModalEvents
 export { ModalEventsUsers } from './modal-events-ui/modal-events-users/ModalEventsUsers';
 export { ModalEventsSlider } from './modal-events-ui/modal-events-slider/ModalEventsSlider';
 export { ModalEvent } from 'shared/ui/modal-events-ui/ModalEvent';
+export { CustomDatePicker } from './date-picker/CustomDatePicker';
+export { EmailForm } from './forms/auth-form/EmailForm';
+export { CreateEventForm } from './forms/create-event-form/CreateEventForm';
+export { RegistrationForm } from './forms/registration-form/RegistrationForm';
+export { UploadFile } from './upload-file/UploadFile';
+export { UserSelector } from './user-selector/UserSelector';
