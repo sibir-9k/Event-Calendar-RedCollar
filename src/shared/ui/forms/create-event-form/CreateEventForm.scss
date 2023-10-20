@@ -67,6 +67,11 @@
 		margin: 0 auto;
 		width: fit-content;
 	}
+
+	.active {
+		background-color: var(--main-colors-black);
+		color: #fff;
+	}
 }
 
 .bottom-block {
@@ -105,4 +110,14 @@
 		background: #efefef;
 		margin-right: 12px;
 	}
+}
+
+.error {
+	color: var(--main-colors-accent);
+	font-family: TT Commons;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 16.8px;
+	letter-spacing: -0.28px;
 }

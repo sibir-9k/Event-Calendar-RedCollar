@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, SetStateAction, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UploadFile } from 'shared/ui/upload-file/UploadFile';
 import { CustomDatePicker } from 'shared/ui/date-picker/CustomDatePicker';
@@ -10,6 +10,7 @@ import { EventJoiningError } from 'shared/ui/modals-body-reaction/event-joining-
 import AvatarUser from '@/public/images/user-avatar.svg';
 
 import './CreateEventForm.scss';
+import { ModalQuestion } from 'shared/ui';
 
 interface Participants {
 	id: number;
@@ -40,6 +41,9 @@ interface CreateEventFormProps {
 	setOpenSuccessfullyEvent: React.Dispatch<React.SetStateAction<boolean>>;
 	setFullForm: React.Dispatch<SetStateAction<never[]>>;
 	setOpenErrorEvent: React.Dispatch<React.SetStateAction<boolean>>;
+	openQustion: boolean;
+	setOpenQuestion: React.Dispatch<React.SetStateAction<boolean>>;
+	setCloseQuestion: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CreateEventForm: FC<CreateEventFormProps> = ({
@@ -47,8 +51,11 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 	setOpenSuccessfullyEvent,
 	setFullForm,
 	setOpenErrorEvent,
+	openQustion,
+	setCloseQuestion,
+	setOpenQuestion,
 }) => {
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, formState } = useForm();
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [formSelectedUsers, setFormSelectedUsers] = useState([]);
@@ -56,8 +63,10 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 	const [openErrorEventJoining, setOpenErrorEventJoining] = useState(false);
 	const [uploadedImages, setUploadedImages] = useState([]);
 	const [organiserName, setOrganiserName] = useState('');
-	const [preview, setPreview] = useState(null);
+	const [, setPreview] = useState(null);
 	const [selectedImage, setSelectedImage] = useState([]);
+
+	const { errors } = formState;
 
 	useEffect(() => {
 		getMe();
@@ -81,7 +90,7 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 		}
 	};
 
-	const updateEventWithPhoto = async (newEventId) => {
+	const updateEventWithPhoto = async (newEventId: unknown) => {
 		try {
 			const response = await apiToken.put(`events/${newEventId}`, {
 				photos: selectedImage,
@@ -145,13 +154,23 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 			<form className="create-event" onSubmit={handleSubmit(onSubmit)} noValidate>
 				<div className="create-event__wrapper">
 					<div className="left-block">
-						<input type="text" {...register('title')} placeholder="Название*" required />
-						<textarea
-							className="description"
-							{...register('description')}
-							placeholder="Описание*"
-							required
-						/>
+						<div>
+							<input
+								type="text"
+								{...register('title', { required: 'Заполните поле' })}
+								placeholder="Название*"
+							/>
+							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+						</div>
+						<div>
+							<textarea
+								className="description"
+								{...register('description', { required: 'Заполните поле' })}
+								placeholder="Описание*"
+								required
+							/>
+							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+						</div>
 						<UserSelector
 							{...register('participants')}
 							setFormSelectedUsers={setFormSelectedUsers}
@@ -160,12 +179,16 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 
 					<div className="right-block">
 						<div className="date-picker">
-							<CustomDatePicker
-								{...register('dateStart')}
-								selected={startDate}
-								onChange={(date: Date | null) => setStartDate(date)}
-								placeholder="Начало*"
-							/>
+							<div>
+								<CustomDatePicker
+									{...register('dateStart', { required: 'Заполните поле' })}
+									selected={startDate}
+									onChange={(date: Date | null) => setStartDate(date)}
+									placeholder="Начало*"
+								/>
+								{errors?.title && <p className="error">{errors?.title?.message}</p>}
+							</div>
+
 							<CustomDatePicker
 								{...register('dateEnd')}
 								selected={endDate}
@@ -173,8 +196,25 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 								placeholder="Конец"
 							/>
 						</div>
-						<input {...register('time')} type="text" placeholder="Время*" required />
-						<input {...register('location')} type="text" placeholder="Место проведения*" required />
+						<div>
+							<input
+								{...register('time', { required: 'Заполните поле' })}
+								type="text"
+								placeholder="Время*"
+								required
+							/>
+							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+						</div>
+						<div>
+							<input
+								{...register('location', { required: 'Заполните поле' })}
+								type="text"
+								placeholder="Место проведения*"
+								required
+							/>
+							{errors?.title && <p className="error">{errors?.title?.message}</p>}
+						</div>
+
 						<div className="organiser">
 							<img src={AvatarUser} className="user-avatar" />
 							<div className="organiser__name">
@@ -192,22 +232,20 @@ export const CreateEventForm: FC<CreateEventFormProps> = ({
 						setPreview={setPreview}
 					/>
 				</div>
-				{/* <button className="create-btn">Создать</button> */}
-
-				{ (
-					<button className="create-btn" disabled>
-						Создать
-					</button>
-				) : (
-					<button className="create-btn">Создать</button>
-				)}
+				<button type="submit" className="create-btn">
+					Создать
+				</button>
 			</form>
+			{openQustion && (
+				<Modal title="Передумали создавать событие?" closeModal={() => setOpenQuestion(false)}>
+					<ModalQuestion setOpenQuestion={setOpenQuestion} setCloseQuestion={setCloseQuestion} />
+				</Modal>
+			)}
 			{openEventJoining && (
 				<Modal title="" closeModal={closeModal}>
 					<EventJoining fullForm={fullForm} />
 				</Modal>
 			)}
-
 			{openErrorEventJoining && (
 				<Modal title="" closeModal={closeModal}>
 					<EventJoiningError setOpenErrorEventJoining={setOpenErrorEventJoining} />

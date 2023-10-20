@@ -1,21 +1,18 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, SetStateAction } from 'react';
 import './UploadFile.scss';
 
 interface UploadFileProps {
 	uploadedImages: File[];
 	setUploadedImages: React.Dispatch<React.SetStateAction<File[]>>;
 	setImage: React.Dispatch<React.SetStateAction<File[]>>;
+	setPreview: React.Dispatch<SetStateAction<null>>;
 }
 
-export function UploadFile({
-	uploadedImages,
-	setUploadedImages,
-	setPreview,
-}: UploadFileProps): JSX.Element {
+export function UploadFile({ setUploadedImages, setPreview }: UploadFileProps): JSX.Element {
 	const [previewUrl, setPreviewUrl] = useState<string[]>([]);
 	const fileInput = useRef<HTMLInputElement>(null);
 
-	const handleFile = async (file) => {
+	const handleFile = async (file: File) => {
 		setUploadedImages((uploadedImages) => [...uploadedImages, file]);
 		setPreviewUrl((previewUrl) => [...previewUrl, URL.createObjectURL(file)]);
 	};
@@ -27,7 +24,7 @@ export function UploadFile({
 	const handleOnDrop = (e: React.DragEvent<HTMLDivElement>): void => {
 		e.preventDefault();
 		e.stopPropagation();
-		const imageFile = e.dataTransfer.files[0];
+		const imageFile = e.dataTransfer.files?.[0];
 		handleFile(imageFile);
 	};
 

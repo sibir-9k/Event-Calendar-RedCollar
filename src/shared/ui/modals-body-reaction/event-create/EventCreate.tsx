@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Button } from 'shared/ui/button/Button';
 import Unicorn from '@/public/images/unicorn.svg';
 import './EventJoining.scss';
 import { ModalEventsDate } from 'shared/ui';
@@ -15,6 +14,7 @@ interface EventCreateProps {
 }
 
 export const EventCreate: FC<EventCreateProps> = ({ fullForm }) => {
+	console.log(fullForm);
 	return (
 		<>
 			<div className="event-joining">
@@ -31,7 +31,7 @@ export const EventCreate: FC<EventCreateProps> = ({ fullForm }) => {
 			<div className="rock-hand">
 				<img src={Unicorn} alt="" />
 			</div>
-			<button className='custom-btn'>Отлично</button>
+			<button className="custom-btn">Отлично</button>
 		</>
 	);
 };

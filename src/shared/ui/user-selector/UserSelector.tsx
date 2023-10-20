@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { FC, useState, useEffect, forwardRef, ForwardedRef } from 'react';
 import UserAvatar from '@/public/images/user-avatar.svg';
 import { apiToken } from 'app/api/config';

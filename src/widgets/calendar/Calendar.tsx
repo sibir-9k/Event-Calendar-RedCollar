@@ -1,4 +1,4 @@
-import { FC, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { api, apiToken } from 'app/api/config';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -44,6 +44,8 @@ export const Calendar: FC<Event> = () => {
 	const [openSuccessfullyEvent, setOpenSuccessfullyEvent] = useState(false);
 	const [fullForm, setFullForm] = useState([]);
 	const [openErrorEvent, setOpenErrorEvent] = useState(false);
+	const [openQustion, setOpenQuestion] = useState(false);
+	const [closeQuestion, setCloseQuestion] = useState(false);
 
 	const closeModal = () => {
 		if (currentEvent !== null) {
@@ -56,6 +58,11 @@ export const Calendar: FC<Event> = () => {
 		}
 
 		if (openCreateEvent) {
+			setOpenQuestion(true);
+		}
+
+		if (closeQuestion) {
+			setOpenQuestion(false);
 			setOpenCreateEvent(false);
 		}
 
@@ -109,7 +116,9 @@ export const Calendar: FC<Event> = () => {
 			}
 		}
 		getEvents();
-	}, [events]);
+
+		return getEvents;
+	}, []);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleEventClick = useCallback((info: EventClickArg) => {
@@ -227,6 +236,9 @@ export const Calendar: FC<Event> = () => {
 			{openCreateEvent && (
 				<Modal title="Создание события" closeModal={closeModal}>
 					<CreateEventForm
+						setCloseQuestion={setCloseQuestion}
+						setOpenQuestion={setOpenQuestion}
+						openQustion={openQustion}
 						setOpenCreateEvent={setOpenCreateEvent}
 						setOpenSuccessfullyEvent={setOpenSuccessfullyEvent}
 						setFullForm={setFullForm}

@@ -1,15 +1,27 @@
-.button-no,
-.button-yes {
-	padding: 21px 32px;
-	border-radius: 12px;
-}
+.btns-block {
+	display: flex;
+	justify-content: center;
+	gap: 24px;
+	.button-no,
+	.button-yes {
+		padding: 21px 32px;
+		border-radius: 12px;
+		cursor: pointer;
+		font-family: Redcollar;
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 18px;
+		letter-spacing: -0.36px;
+	}
 
-.button-no {
-	border: 1px solid var(--main-colors-black) !important;
-	color: var(--main-colors-black);
-}
+	.button-no {
+		border: 1px solid var(--main-colors-black) !important;
+		color: var(--main-colors-black);
+	}
 
-.button-yes {
-	color: var(--main-colors-white);
-	background-color: var(--main-colors-black);
+	.button-yes {
+		color: var(--main-colors-white);
+		background-color: var(--main-colors-black);
+	}
 }
