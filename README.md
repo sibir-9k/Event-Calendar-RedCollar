@@ -16,7 +16,7 @@ Currently, two official plugins are available:
    ```
 4. Запуск проекта (dev.)
    ```js
-   npm start 
+   npm run dev
    ```
 5. Сборка проекта
    ```js
